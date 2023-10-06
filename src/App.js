@@ -37,10 +37,10 @@ export function App() {
       <h1 className='title'>To Do List</h1>
       <section className="TodoList">
         <CurrentDay date={formatedDay}/>
-        {todoList.map(todo => 
-          <TodoInfo 
-          todo={todo} 
-          key={todo.id} 
+        {todoList.map(todo =>
+          <TodoInfo
+          todo={todo}
+          key={todo.id}
           handleChange={handleChange}/>)}
           <Button />
           <TodoForm addNewTodo={addNewTodo}/>
@@ -55,15 +55,15 @@ const TodoInfo = ({ todo, handleChange }) => {
       <div className={`TodoInfo ${isCompleted}`}>
         <label>
         <span className='customBox'>
-        <input 
+        <input
           className='checkbox'
-          type='checkbox' 
-          id={todo.id} 
-          name={todo.title} 
+          type='checkbox'
+          id={todo.id}
+          name={todo.title}
           onChange={() => handleChange(todo.id)}
           checked={todo.completed}
         />
-        </span>  
+        </span>
           {todo.title}
         </label>
       </div>
@@ -84,7 +84,7 @@ const CurrentDay = ({ date }) => {
 }
 
 const Button = () => {
-  
+
 }
 
 const TodoForm = ({ addNewTodo }) => {
@@ -126,22 +126,22 @@ const TodoForm = ({ addNewTodo }) => {
 
   return (
     <div className='TodoForm'>
-      
-        <div 
-          className='plus_button' 
+
+        <div
+          className='plus_button'
           onClick={handleClickToShow}
         >
            {!isShown ? "+" : "-"}
         </div>
-    
-      
+
+
       {isShown &&(
         <form className='form' method="POST" onSubmit={handlerSubmit}>
           <label className='message'>
-            <input 
+            <input
               className='field'
-              type='text' 
-              value={title} 
+              type='text'
+              value={title}
               id='0'
               onChange={handleChange}
             />
@@ -150,7 +150,7 @@ const TodoForm = ({ addNewTodo }) => {
           </label>
         </form>
       )}
-    </div>  
+    </div>
   )
 }
 
