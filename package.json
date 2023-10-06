@@ -40,7 +40,7 @@
     ]
   },
   "devDependencies": {
-    "ajv": "^6.9.1",
+    "ajv": "^6.12.6",
     "gh-pages": "^6.0.0",
     "jest-watch-typeahead": "^2.2.2",
     "jest-watcher": "^29.7.0"
