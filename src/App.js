@@ -11,7 +11,7 @@ export function App() {
   const [todoList, setTodoList] = useState(todos);
   const currentDate = new Date();
   const options = { weekday: 'long', month: 'long', day: 'numeric' };
-  const formatedDay = currentDate.toLocaleDateString(undefined, options);
+  const formattedDay = currentDate.toLocaleDateString(undefined, options);
 
   const addNewTodo = (todo) => {
     const maxId = Math.max(...todoList.map(todo => todo.id));
@@ -36,7 +36,7 @@ export function App() {
     <div className="App">
       <h1 className='title'>To Do List</h1>
       <section className="TodoList">
-        <CurrentDay date={formatedDay}/>
+        <CurrentDay date={formattedDay}/>
         {todoList.map(todo =>
           <TodoInfo
           todo={todo}
