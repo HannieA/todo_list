@@ -9,43 +9,149 @@ const todos = [
 
 export function App() {
   const [todoList, setTodoList] = useState(todos);
-  const [isChecked, setIsChecked] = useState(false);
+  const currentDate = new Date();
+  const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  const formatedDay = currentDate.toLocaleDateString(undefined, options);
 
-  const handleClick = (id) => {
-    let updatedList = [...todoList];
+  const addNewTodo = (todo) => {
+    const maxId = Math.max(...todoList.map(todo => todo.id));
 
-    for (let i = 0; i < updatedList.length; i++) {
-      if (updatedList[i].id === id) {
-        updatedList[i].completed = true;
-      }
-    } 
+    const newTodo = {
+      ...todo,
+      id: maxId + 1,
+    }
 
-    setTodoList(updatedList);
-    setIsChecked(true);
-  }
+    setTodoList(prevList => [...prevList, newTodo]);
+  };
+
+  const handleChange = (id) => {
+    setTodoList((prevTodoList) =>
+      prevTodoList.map((todo) => (
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      ))
+    );
+  };
 
   return (
     <div className="App">
       <h1 className='title'>To Do List</h1>
-      <section className="TodoList" >
+      <section className="TodoList">
+        <CurrentDay date={formatedDay}/>
         {todoList.map(todo => 
           <TodoInfo 
           todo={todo} 
-          isChecked={isChecked}
           key={todo.id} 
-          handleClick={handleClick}/>)}
+          handleChange={handleChange}/>)}
+          <Button />
+          <TodoForm addNewTodo={addNewTodo}/>
       </section>
     </div>
   );
 }
 
-const TodoInfo = ({ todo, handleClick, isChecked }) => {
+const TodoInfo = ({ todo, handleChange }) => {
   const isCompleted = todo.completed === true ? 'TodoInfo--completed' : '';
-return (
-    <div className={`TodoInfo ${isCompleted}`} onClick={() => handleClick(todo.id)}>
-      <p className='todoTitle'>{todo.title}</p>
+  return (
+      <div className={`TodoInfo ${isCompleted}`}>
+        <label>
+        <span className='customBox'>
+        <input 
+          className='checkbox'
+          type='checkbox' 
+          id={todo.id} 
+          name={todo.title} 
+          onChange={() => handleChange(todo.id)}
+          checked={todo.completed}
+        />
+        </span>  
+          {todo.title}
+        </label>
+      </div>
+  );
+}
+
+const CurrentDay = ({ date }) => {
+  const datePart = date.split(', ');
+  const day = datePart[0];
+  const currentDate = datePart[1];
+
+  return (
+    <div className="CurrentDay">
+      <div className="day">{day}</div>
+      <div className="month">{currentDate}</div>
     </div>
-);
+  )
+}
+
+const Button = () => {
+  
+}
+
+const TodoForm = ({ addNewTodo }) => {
+  const [title, setTitle] = useState('');
+  const [hasError, setHasError] = useState(false);
+  const [isShown, setIsShown] = useState(false);
+
+  const handleChange = event => {
+    setTitle(event.target.value);
+    setHasError(false);
+  }
+
+  const handleClickToShow = () => {
+    !isShown ? setIsShown(true) : setIsShown(false);
+  }
+
+  const handlerSubmit = (event) => {
+    event.preventDefault();
+
+    if (!title.trim()) {
+      setHasError(true);
+
+      return;
+    }
+
+    addNewTodo({
+      title,
+      completed: false
+    });
+
+    reset();
+  }
+
+  const reset = () => {
+    setTitle('');
+    setHasError(false);
+    setIsShown(false);
+  }
+
+  return (
+    <div className='TodoForm'>
+      
+        <div 
+          className='plus_button' 
+          onClick={handleClickToShow}
+        >
+           {!isShown ? "+" : "-"}
+        </div>
+    
+      
+      {isShown &&(
+        <form className='form' method="POST" onSubmit={handlerSubmit}>
+          <label className='message'>
+            <input 
+              className='field'
+              type='text' 
+              value={title} 
+              id='0'
+              onChange={handleChange}
+            />
+            <br />
+            {!hasError ? 'Time for a new todo' : 'Don\'t forget to add todo'}
+          </label>
+        </form>
+      )}
+    </div>  
+  )
 }
 
 export default App;

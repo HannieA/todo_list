@@ -1,5 +1,7 @@
 .App {
   margin-top: 100px;
+  color: #616473;
+  box-sizing: border-box;
 }
 
 .title {
@@ -7,32 +9,84 @@
   margin-bottom: 30px;
 }
 
+.CurrentDay {
+  margin-bottom: 20px;
+}
+
 .TodoList{
+  position: relative;
   margin: auto;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 15px;
   background-color: ghostwhite;
   width: max-content;
-  padding: 50px;
+  padding: 50px 70px 70px;
   border-radius: 10px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .TodoInfo {
-  color: gray;
-  font-size: 20px;
-  border: 1px solid rgb(247, 171, 184);
-  border-radius: 10px;
-  width: 200px;
-  text-align: center;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  color: #616473;
+  font-size: 16px;
+  text-align: left;
 }
 
 .TodoInfo--completed {
   text-decoration:line-through;
-  border: 1px solid green;
 }
 
-.TodoInfo:hover {
+.checkbox {
+  opacity: 0.6;
+  margin-right: 14px;
+}
+
+.checkbox:hover {
   cursor: pointer;
+}
+
+.day {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.plus_button {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #a680a8;
+  color: white;
+  transition: 250ms ease-in-out;
+}
+
+.plus_button:hover {
+  cursor: pointer;
+}
+
+.form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.field {
+  padding: 5px 10px;
+  border: 1px solid #a680a8;
+  border-radius: 10px;
+  color: #616473;
+  margin-bottom: 5px;
+}
+
+.message {
+  text-align: center;
+  font-size: 12px;
 }
